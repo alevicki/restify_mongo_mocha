@@ -27,8 +27,17 @@ describe('API tests', function () {
             },
             function (err, req, res, obj) {
                 assert.ifError(err);
-                assert.ok(res.statusCode === 200, 'Incorrect status returned');
+                assert.ok(res.statusCode === 201, 'Incorrect status returned');
                 assert.ok(obj._id, 'Id was set on note response');
+                done();
+            }
+        );
+    });
+
+    it('Should return an error', function (done) {
+        client.get('/note/asldkfj',
+            function (err, req, res, obj) {
+                assert.equal(res.statusCode, 500, 'No error code was returned');
                 done();
             }
         );
